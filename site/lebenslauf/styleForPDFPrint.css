@@ -1,0 +1,417 @@
+/* 1. GRUND-LAYOUT (PDF-OPTIK) */
+
+* {
+    box-sizing: border-box; /* Verhindert, dass Padding die Breite vergrößert */
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 40px 0;
+    color: #000;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* .resume-container {
+    max-width: 850px;
+    margin: 0 auto;
+    background-color: #fff;
+    min-height: 100vh;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+} */
+
+.resume-container {
+    width: 210mm;          /* Exakte A4 Breite */
+    min-height: 297mm;     /* Mindesthöhe A4 */
+    margin: 40px auto;     /* Zentriert mit Abstand zum Fensterrand */
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    box-sizing: border-box; /* Wichtig, damit Padding in die Breite eingerechnet wird */
+    position: relative;     /* Für saubere Positionierung */
+}
+
+/* 2. HEADER (DUNKELBLAU) */
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 35px 50px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 10px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.header-left p, .header-right p {
+    margin: 4px 0;
+}
+
+.header-right {
+    text-align: right;
+}
+
+/* 3. HAUPTTEIL & STRUKTUR */
+main {
+    padding: 30px 50px;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 25px 0 12px 0;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 18px 0;
+}
+
+p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 4px 0;
+}
+
+.link-centered {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.link-centered a {
+    color: #000;
+    text-decoration: none;
+    font-size: 13.5px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* 4. INTERAKTIVE ZEILEN (250px SPALTE & KEINE PFEILE) */
+details {
+    margin-bottom: 10px;
+}
+
+summary, .static-row {
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Titel nach rechts verschoben */
+    align-items: start;
+    cursor: pointer;
+    list-style: none;
+    outline: none;
+}
+
+/* Brute-Force Entfernung aller Browser-Pfeile */
+summary::-webkit-details-marker { display: none !important; }
+summary::marker { content: ""; display: none !important; }
+
+.date {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.2;
+}
+
+.info {
+    font-size: 14px;
+    line-height: 1.1; /* Sehr enger Zeilenabstand wie im PDF */
+    text-align: left;
+}
+
+.info strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 1px; /* Minimaler Abstand zur Zeile darunter */
+}
+
+/* 5. DROP-DOWN INHALT (VOLLE BREITE) */
+.dropdown-content {
+    margin-left: 0; /* Nicht mehr eingerückt */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 0;
+    margin-top: 10px;
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+/* SLIDER & BILDER */
+.horizontal-slider {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px 0;
+    width: 100%;
+    
+    
+}
+
+.slider-centered {
+    justify-content: center;
+}
+
+.slide-card {
+    flex: 0 0 240px;
+    background: white;
+    padding: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.03);
+}
+
+.slide-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+}
+
+/* 6. KENNTNISSE GRID */
+.lang-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 4px;
+}
+
+/* --- HINWEIS-TEXT (Webseite & PDF) --- */
+/* Das macht den roten Text sichtbar */
+#pdf-recommendation {
+    display: block;          
+    text-align: center;
+    margin: 20px 0;          
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+#pdf-recommendation a {
+    color: #ff4d4d;          /* Helles Rot */
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* --- HINWEIS-PFEIL --- */
+#click-hint {
+    position: absolute;
+    /* Positioniert den Hinweis links neben den Text */
+    left: -220px; 
+    margin-top: -25px; /* Höhe feinjustieren, damit er auf die Zeile zeigt */
+    width: 200px;
+    text-align: right;
+    color: #e74c3c; /* Ein schönes Signal-Rot */
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 14px;
+    pointer-events: none; /* Klicks gehen durch, stört nicht */
+    animation: bounce 1.5s infinite; /* Die Wipp-Animation */
+    z-index: 100;
+}
+
+.hint-arrow {
+    font-size: 20px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.hint-text {
+    vertical-align: middle;
+}
+
+/* Animation: Leichtes Wippen nach rechts */
+@keyframes bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
+}
+
+/* --- HINWEIS-TEXT (Webseite & PDF) --- */
+/* --- HINWEIS-TEXT (Webseite & PDF) --- */
+#pdf-recommendation {
+    /* ... bleibt gleich ... */
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #ff6b81;
+    line-height: 1.5;
+}
+
+#pdf-recommendation a {
+    color: #ff6b81;
+    /* HIER GEÄNDERT: Von 'none' zu 'underline' */
+    text-decoration: underline; 
+    font-weight: bold;
+}
+
+/* Optional: Ein sanfter Unterstrich nur wenn man mit der Maus drüberfährt */
+#pdf-recommendation a:hover {
+    color: #ff4757;
+    text-decoration: underline;
+}
+
+
+/* --- GRAUE PFEILE (AUSSERHALB & INTELLIGENT) --- */
+
+summary {
+    position: relative;  /* Bezugspunkt für den Pfeil */
+    overflow: visible;   /* Wichtig! Sonst wird der Pfeil am Rand abgeschnitten */
+}
+
+/* Der Pfeil selbst */
+/* Der Pfeil selbst */
+summary::after {
+    content: '←';         
+    position: absolute;
+    
+    /* HIER SIND DIE NEUEN WERTE: */
+    right: -80px;         /* 20px weiter nach rechts raus */
+    top: -5px;           /* 50px weiter nach oben */
+    
+    /* Styling bleibt gleich */
+    color: #bbb;          
+    font-size: 24px;
+    font-weight: lighter;
+    pointer-events: none; 
+    transition: opacity 0.3s;
+}
+
+/* Logik: Wenn die Klasse .visited per Javascript gesetzt wurde -> Pfeil weg */
+details.visited summary::after {
+    display: none !important;
+}
+
+/* Ausnahme: Header bekommt keinen Pfeil */
+/* --- SPEZIAL-PFEIL FÜR DEN HEADER --- */
+#header-details summary::after {
+    display: block;      /* Wir aktivieren den Pfeil */
+    
+    /* Positionierung speziell für den Header */
+    top: 50px;           /* Schiebt ihn tiefer (auf Höhe des Namens) */
+    right: -80px;        /* Gleicher Abstand nach rechts wie bei den anderen */
+    
+    /* Falls du ihn noch größer/auffälliger willst, kannst du das hier ändern: */
+    /* font-size: 30px; */ 
+}
+
+/* Auf kleinen Bildschirmen (Handy) Pfeile ausblenden, da kein Platz an der Seite ist */
+@media (max-width: 1000px) {
+    summary::after { display: none; }
+}
+
+/* Im PDF Druck natürlich auch ausblenden */
+@media print {
+    summary::after { display: none !important; }
+}
+
+
+/* Auf kleinen Bildschirmen (Handy) ausblenden, da dort kein Platz links ist */
+@media (max-width: 1100px) {
+    #click-hint {
+        display: none;
+    }
+}
+
+/* 7. MOBILE OPTIMIERUNG */
+@media (max-width: 600px) {
+    header, main { padding: 20px; }
+    summary, .static-row { grid-template-columns: 1fr; }
+    .date { font-weight: bold; margin-bottom: 5px; }
+    .dropdown-content { padding: 15px 10px; }
+}
+
+/* --- DRUCK-LAYOUT (Vektor-PDF) --- */
+@media print {
+    /* 1. Papier-Einstellungen: Zwingend KEINE Ränder vom Browser */
+    @page {
+        margin: 0 !important;
+        size: A4 portrait;
+    }
+    
+    html, body {
+        width: 210mm;        /* Exakt A4 Breite */
+        height: auto;
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* 2. Container auf volle Breite zwingen */
+    .resume-container {
+        width: 100% !important;      /* Nutze das ganze Blatt */
+        max-width: none !important;  /* Überschreibe die 850px Begrenzung */
+        margin: 0 !important;        /* Kein Zentrieren mehr nötig */
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    /* Download-Button verstecken */
+    #download-btn { display: none !important; }
+
+    /* Roter Pfeil verstecken */
+    #click-hint { display: none !important; }
+
+    /* 3. FEIN-TUNING DER ABSTÄNDE */
+    
+    /* Wichtig: Header muss jetzt über die volle Breite gehen */
+    header {
+        padding: 25px 40px !important; 
+    }
+    
+    main {
+        /* Erster Wert (15px) = Abstand über Kurzprofil */
+        padding: 0px 40px !important; 
+    }
+
+    /* Elemente zusammenrücken */
+    details { margin-bottom: 8px !important; }
+    hr { margin: 15px 0 !important; }
+    h2 { margin: 20px 0 10px 0 !important; }
+    
+    /* Inhalte verstecken: IMMER zugeklappt im PDF */
+    .dropdown-content { display: none !important; }
+
+    /* 4. Roter Text (Hinweis) im PDF anpassen */
+  /* ... innerhalb von @media print ... */
+
+    /* 4. Roter Text (Hinweis) im PDF anpassen */
+    /* 4. Roter Text (Hinweis) im PDF anpassen */
+    #pdf-recommendation {
+        margin-top: 5px !important;    /* Vorher 20px (viel Platz gespart) */
+        margin-bottom: 5px !important; /* Vorher 20px */
+        line-height: 1.2 !important;   /* Zieht die Textzeilen enger zusammen */
+        color: #ff6b81 !important;
+    }
+    
+    #pdf-recommendation a {
+        color: #ff6b81 !important;
+        /* HIER GEÄNDERT: Von 'none' zu 'underline' */
+        text-decoration: underline !important;
+        font-weight: bold !important;
+    }
+
+    /* 5. LINKS REPARIEREN */
+    /* Dies stellt sicher, dass Links über allem anderen schweben und klickbar sind */
+    a {
+        text-decoration: none !important;
+        color: inherit !important; /* Behält Textfarbe bei */
+        cursor: pointer !important;
+        position: relative !important; 
+        z-index: 9999 !important;
+    }
+    
+    /* Speziell für den Container des LinkedIn Links */
+    .link-centered {
+        position: relative !important;
+        z-index: 9999 !important;
+    }
+}

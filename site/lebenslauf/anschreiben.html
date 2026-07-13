@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anschreiben - Kolja Grosse</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="anschreiben-seite">
+
+<div class="resume-container">
+    <header>
+        <div class="header-top">
+            <h1>Anschreiben</h1>
+        </div>
+        <div class="header-content">
+            <div class="header-left">
+                <p><strong>Kolja Grosse</strong></p>
+                <p>22.08.1999</p>
+            </div>
+            <div class="header-right">
+                <p>mail@koljagrosse.com</p>
+                <p>+49 1578 3073168</p>
+                <p>Sonderburger Str. 41, 51065 Köln</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="anschreiben">
+
+            <div class="empfaenger">
+                <p><strong>[Unternehmen GmbH]</strong></p>
+                <p>[Vorname Nachname]</p>
+                <p>[Straße Hausnummer]</p>
+                <p>[PLZ Ort]</p>
+            </div>
+
+            <p class="ort-datum">Köln, [TT. Monat JJJJ]</p>
+
+            <p class="betreff">Bewerbung als [Position]</p>
+
+            <p class="absatz">Sehr geehrte/r [Frau/Herr Nachname],</p>
+
+            <p class="absatz">mit großem Interesse habe ich Ihre Stellenausschreibung als [Position] gelesen. Als Informatikstudent der Universität zu Köln mit praktischer Erfahrung in Cloud- und DevOps-Technologien möchte ich mein Wissen bei [Unternehmen] einbringen und gezielt weiter ausbauen.</p>
+
+            <p class="absatz">Neben meinem Studium habe ich eigenständig eine Website auf AWS umgesetzt – von S3 und CloudFront über Lambda und DynamoDB bis zum API Gateway. Mit dem AWS Certified Cloud Practitioner habe ich meine Cloud-Kenntnisse zertifiziert. Darüber hinaus containerisiere ich Anwendungen mit Docker, entwickle Python-Projekte wie eine eigene Smarthome-Steuerung und betreibe einen Homeserver mit Proxmox VE als Hypervisor.</p>
+
+            <p class="absatz">Aus meiner bisherigen Berufserfahrung bringe ich strukturiertes und zuverlässiges Arbeiten mit: Bei der Eurowings Aviation GmbH habe ich im Cost Controlling Reisekosten analysiert und visualisiert, bei der UEFA EURO 2024 und in der Formel 1 habe ich unter Zeitdruck Abläufe koordiniert und Verantwortung übernommen.</p>
+
+            <p class="absatz">Ich freue mich darauf, Sie in einem persönlichen Gespräch von mir zu überzeugen. Ab [Datum/sofort] stehe ich Ihnen zur Verfügung.</p>
+
+            <p class="gruss">Mit freundlichen Grüßen</p>
+            <img src="documents/unterschrift.png" alt="Unterschrift Kolja Grosse" class="unterschrift-bild">
+            <p class="unterschrift-name">Kolja Grosse</p>
+
+        </section>
+    </main>
+</div>
+
+<a id="download-btn" href="#">
+    PDF herunterladen
+</a>
+
+<p class="seiten-nav"><a href="index.html">Zum Lebenslauf &rarr;</a></p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="pdf.js?v=3"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // PDF-DOWNLOAD: Erzeugt eine einseitige DIN-A4-Vektor-PDF direkt aus der
+        // Seite (echter Text statt Bild, verlustfrei zoombar; Logik in pdf.js)
+        const downloadBtn = document.getElementById('download-btn');
+        downloadBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof window.jspdf === 'undefined' || typeof window.erzeugeLebenslaufPdf === 'undefined') return;
+            if (downloadBtn.classList.contains('generating')) return;
+
+            downloadBtn.classList.add('generating');
+            const originalText = downloadBtn.textContent;
+            downloadBtn.textContent = 'PDF wird erstellt …';
+
+            document.body.classList.add('pdf-mode');
+            const prevScrollY = window.scrollY;
+            const element = document.querySelector('.resume-container');
+
+            function cleanup() {
+                element.style.removeProperty('width');
+                document.body.classList.remove('pdf-mode');
+                window.scrollTo(0, prevScrollY);
+                downloadBtn.classList.remove('generating');
+                downloadBtn.textContent = originalText;
+            }
+
+            erzeugeLebenslaufPdf(element).then(function(pdf) {
+                pdf.save('Kolja_Grosse_Anschreiben.pdf');
+                cleanup();
+            }).catch(cleanup);
+        });
+    });
+</script>
+</body>
+</html>

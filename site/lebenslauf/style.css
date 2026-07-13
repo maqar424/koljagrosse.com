@@ -1,0 +1,532 @@
+/* --- 1. GRUND-LAYOUT (PDF-OPTIK) --- */
+* {
+    box-sizing: border-box; /* Verhindert, dass Padding die Breite vergrößert */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 40px 0;
+    color: #000;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Das A4-Blatt: zugeklappt exakt DIN A4 (210mm x 297mm).
+   Aufgeklappte Dropdowns verlängern das Blatt entsprechend. */
+.resume-container {
+    width: 210mm;          /* Exakte A4 Breite */
+    min-height: 297mm;     /* Mindestens A4 hoch, wächst mit geöffnetem Inhalt */
+    margin: 40px auto;     /* Zentriert mit Abstand zum Fensterrand */
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* --- 2. HEADER (DUNKELBLAU) --- */
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 22px 50px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding-bottom: 7px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.header-left p, .header-right p {
+    margin: 4px 0;
+}
+
+.header-right {
+    text-align: right;
+}
+
+/* --- 3. HAUPTTEIL & TEXT --- */
+main {
+    padding: 18px 50px 22px;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 16px 0 8px 0;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 12px 0;
+}
+
+p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 4px 0;
+}
+
+/* Zentrierte Links (z.B. LinkedIn) */
+.link-centered {
+    text-align: center;
+    margin: 8px 0;
+}
+
+.link-centered a {
+    color: #000;
+    text-decoration: none;
+    font-size: 13.5px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* --- 4. INTERAKTIVE ELEMENTE (ACCORDION) --- */
+details {
+    margin-bottom: 8px;
+}
+
+summary, .static-row {
+    display: grid;
+    grid-template-columns: 350px 1fr; /* Titel nach rechts verschoben */
+    align-items: start;
+    cursor: pointer;
+    list-style: none;
+    outline: none;
+    position: relative; /* Wichtig für Pfeile */
+    overflow: visible;  /* Damit Pfeile rechts rausschauen können */
+}
+
+/* Entfernung der Standard-Browser-Pfeile */
+summary::-webkit-details-marker { display: none !important; }
+summary::marker { content: ""; display: none !important; }
+
+.date {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.2;
+}
+
+.info {
+    font-size: 14px;
+    line-height: 1.1; 
+    text-align: left;
+}
+
+.info strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 1px; 
+}
+
+/* Inhalt der Dropdowns */
+.dropdown-content {
+    margin-left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 0;
+    margin-top: 10px;
+    background-color: #fff; /* Nahtloser weißer Hintergrund */
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+/* --- 5. SLIDER & BILDER --- */
+.horizontal-slider {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px 0;
+    width: 100%;
+    /* Standard: Links ausgerichtet (für Interessen) */
+}
+
+.slider-centered {
+    justify-content: center; /* Spezialklasse für zentrierte Slider (für Jobs) */
+}
+
+.slide-card {
+    flex: 0 0 240px;
+    background: white;
+    padding: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.03);
+}
+
+.slide-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 3px;
+}
+
+/* Grid für Sprachkenntnisse */
+.lang-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 4px;
+}
+
+/* --- 6. HINWEISE & NAVIGATION --- */
+
+
+
+/* B) Roter Pfeil links (Click Hint) */
+#click-hint {
+    position: absolute;
+    left: -220px; 
+    margin-top: -25px; 
+    width: 200px;
+    text-align: right;
+    color: #bbb; 
+    
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 14px;
+    pointer-events: none;
+    animation: bounce 1.5s infinite;
+    z-index: 100;
+}
+
+.hint-arrow {
+    font-size: 20px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(10px); }
+}
+
+/* C) Graue Pfeile rechts (für Dropdowns) */
+summary::after {
+    content: '←';         
+    position: absolute;
+    /* Position rechts außerhalb des Blattes */
+    right: -80px;         
+    top: -5px;           
+    
+    color: #bbb;          
+    font-size: 24px;
+    font-weight: lighter;
+    pointer-events: none; 
+    transition: opacity 0.3s;
+}
+
+/* Wenn besucht (Klasse per JS), Pfeil ausblenden */
+details.visited summary::after {
+    display: none !important;
+}
+
+/* D) Spezial-Pfeil für den Header */
+#header-details summary::after {
+    display: block;
+    top: 50px;           
+    right: -80px;        
+}
+
+/* --- 7. RESPONSIVE DESIGN (MOBILE & TABLET) --- */
+
+/* A) Tablet & kleine Laptops (unter 1100px) */
+@media (max-width: 1100px) {
+    #click-hint { display: none; }
+    summary::after { display: none; }
+}
+
+/* B) Smartphones (unter 850px) */
+@media (max-width: 850px) {
+    
+    /* 1. Hintergrund & Container aufräumen */
+    body {
+        padding: 0;
+        background-color: #fff; 
+    }
+
+    .resume-container {
+        width: 100%;
+        min-height: auto;
+        margin: 0;
+        box-shadow: none;
+        border: none;
+    }
+    /* 2. Abstände verringern */
+    header, main { 
+        padding: 20px 25px; 
+    }
+
+    header h1 {
+        font-size: 26px;      
+    }
+
+    /* 3. Layout der Zeilen (Datum & Job) untereinander statt nebeneinander */
+    summary, .static-row { 
+        grid-template-columns: 1fr; 
+        gap: 5px;
+    }
+
+    /* Das Datum optisch abheben */
+    .date { 
+        font-weight: bold; 
+        margin-bottom: 2px;
+        color: #555;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .info {
+        padding-left: 0;       
+    }
+
+    /* 4. Dropdown-Inhalt */
+    .dropdown-content { 
+        padding: 15px 0; 
+    }
+    
+    /* Header-Inhalt (Name & Kontakt) untereinander */
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .header-right {
+        text-align: left; 
+    }
+    #mobile-hint { display: flex; }
+}
+
+
+/* --- DOWNLOAD BUTTON (Dezent & Mittig) --- */
+#download-btn {
+    display: block;
+    width: fit-content;
+    margin: 30px auto;     /* Zentriert den Button */
+    padding: 10px 20px;
+    
+    color: #95a5a6;        /* Dezentes Grau */
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+#download-btn:hover {
+    color: #2c3e50;        /* Dunkler beim Drüberfahren */
+    border-color: #2c3e50;
+    background-color: #fff;
+}
+
+/* --- MOBILE POPUP (Standard: Versteckt) --- */
+#mobile-hint {
+    display: none; /* Auf Desktop unsichtbar */
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 400px;
+    background-color: rgba(44, 62, 80, 0.95); /* Dunkelblau, leicht transparent */
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 10000;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+#mobile-hint button {
+    background: #fff;
+    color: #2c3e50;
+    border: none;
+    padding: 5px 15px;
+    margin-left: 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* --- 7b. ANSCHREIBEN (anschreiben.html) --- */
+
+/* Gleiche Header-Höhe wie auf der Lebenslauf-Seite (dort addiert das
+   Foto-Dropdown-Element 8px unter dem Header-Inhalt) */
+body.anschreiben-seite header {
+    padding-bottom: 30px;
+}
+
+.anschreiben .empfaenger {
+    margin: 10px 0 35px 0;
+}
+
+.anschreiben .ort-datum {
+    text-align: right;
+    margin-bottom: 30px;
+}
+
+.anschreiben .betreff {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.anschreiben .absatz {
+    margin-bottom: 16px;
+}
+
+.anschreiben .gruss {
+    margin-top: 30px;
+}
+
+.anschreiben .unterschrift-bild {
+    display: block;
+    width: 170px;        /* handschriftliche Unterschrift, dezent skaliert */
+    height: auto;
+    margin: 6px 0 2px 0;
+}
+
+.anschreiben .unterschrift-name {
+    margin: 0;
+}
+
+/* Dezenter Link unter dem Download-Button (z.B. zurück zum Lebenslauf) */
+.seiten-nav {
+    text-align: center;
+    margin: 0 0 30px 0;
+}
+
+.seiten-nav a {
+    color: #95a5a6;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.seiten-nav a:hover {
+    color: #2c3e50;
+}
+
+/* --- 8. PDF-MODUS (Download-Button, html2pdf) --- */
+/* Wird per JS kurzzeitig auf <body> gesetzt, während die PDF erzeugt wird */
+body.pdf-mode .resume-container {
+    width: 210mm !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+/* Während der PDF-Erzeugung: Seite nicht horizontal scrollen lassen,
+   das Blatt wird kurzzeitig breiter als das Fenster */
+body.pdf-mode {
+    overflow-x: hidden;
+}
+
+body.pdf-mode #click-hint,
+body.pdf-mode summary::after,
+body.pdf-mode .dropdown-content {
+    display: none !important;
+}
+
+/* Desktop-Layout erzwingen, auch wenn vom Smartphone heruntergeladen wird
+   (überschreibt die Mobile-Media-Query) */
+body.pdf-mode header {
+    padding: 35px 50px !important;
+}
+
+body.pdf-mode main {
+    padding: 30px 50px !important;
+}
+
+body.pdf-mode header h1 {
+    font-size: 32px !important;
+}
+
+body.pdf-mode .header-content {
+    flex-direction: row !important;
+    gap: 0 !important;
+}
+
+body.pdf-mode .header-right {
+    text-align: right !important;
+}
+
+body.pdf-mode summary,
+body.pdf-mode .static-row {
+    grid-template-columns: 350px 1fr !important;
+    gap: 0 !important;
+}
+
+body.pdf-mode .date {
+    font-weight: normal !important;
+    color: #333 !important;
+    font-size: 14px !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    margin-bottom: 0 !important;
+}
+
+/* --- 8. DRUCK-LAYOUT (PDF GENERIERUNG) --- */
+@media print {
+    /* Grundeinstellungen: Keine Ränder vom Browser */
+    @page {
+        margin: 0 !important;
+        size: A4 portrait;
+    }
+    
+    html, body {
+        width: 210mm;        
+        height: auto;
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* Container auf volle Breite ohne Schatten */
+    .resume-container {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    /* Unnötiges ausblenden */
+    #download-btn { display: none !important; }
+    #click-hint { display: none !important; }
+    summary::after { display: none !important; }
+    .dropdown-content { display: none !important; } /* Alles zugeklappt */
+
+
+    /* Links klickbar machen */
+    a {
+        text-decoration: none !important;
+        color: inherit !important;
+        cursor: pointer !important;
+        position: relative !important; 
+        z-index: 9999 !important;
+    }
+    
+    .link-centered {
+        position: relative !important;
+        z-index: 9999 !important;
+    }
+}
