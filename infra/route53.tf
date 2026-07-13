@@ -12,9 +12,10 @@ locals {
 resource "aws_route53_record" "a" {
   for_each = toset(local.site_domains)
 
-  zone_id = data.aws_route53_zone.site.zone_id
-  name    = each.value
-  type    = "A"
+  zone_id         = data.aws_route53_zone.site.zone_id
+  name            = each.value
+  type            = "A"
+  allow_overwrite = true
 
   alias {
     name                   = aws_cloudfront_distribution.site.domain_name
@@ -26,9 +27,10 @@ resource "aws_route53_record" "a" {
 resource "aws_route53_record" "aaaa" {
   for_each = toset(local.site_domains)
 
-  zone_id = data.aws_route53_zone.site.zone_id
-  name    = each.value
-  type    = "AAAA"
+  zone_id         = data.aws_route53_zone.site.zone_id
+  name            = each.value
+  type            = "AAAA"
+  allow_overwrite = true
 
   alias {
     name                   = aws_cloudfront_distribution.site.domain_name
