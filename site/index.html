@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kolja Grosse</title>
+  <meta name="description" content="Persönliche Website von Kolja Grosse.">
+  <link rel="preconnect" href="/">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <h1 class="site-name">Kolja Grosse</h1>
+    <p class="tagline">Persönliche Website</p>
+
+    <nav aria-label="Hauptnavigation">
+      <ul class="nav-list">
+        <li>
+          <a href="/lebenslauf">
+            <span class="label">Lebenslauf</span>
+            <span class="desc">Werdegang &amp; Stationen</span>
+          </a>
+        </li>
+        <li>
+          <a href="/interessen">
+            <span class="label">Persönliche Interessen</span>
+            <span class="desc">Was mich bewegt</span>
+          </a>
+        </li>
+        <li>
+          <a href="/projekte">
+            <span class="label">Private Projekte</span>
+            <span class="desc">Woran ich bastle</span>
+          </a>
+        </li>
+        <li>
+          <a href="/server-setup">
+            <span class="label">Mein Server Setup</span>
+            <span class="desc">Hard- &amp; Software</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <footer class="footer">
+      &copy; <span id="year">2026</span> Kolja Grosse
+    </footer>
+  </main>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

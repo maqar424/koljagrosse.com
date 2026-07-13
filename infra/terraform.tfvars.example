@@ -1,0 +1,9 @@
+# Kopiere diese Datei nach terraform.tfvars und passe sie bei Bedarf an.
+# Die Defaults in variables.tf passen bereits für koljagrosse.com.
+
+aws_region  = "eu-central-1"
+domain_name = "koljagrosse.com"
+
+subject_alternative_names = ["www.koljagrosse.com"]
+
+price_class = "PriceClass_100"

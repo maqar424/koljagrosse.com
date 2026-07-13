@@ -1,0 +1,151 @@
+/* ------------------------------------------------------------------ *
+ * koljagrosse.com — minimalistisches Stylesheet
+ * ------------------------------------------------------------------ */
+
+:root {
+  --bg: #fafaf9;
+  --fg: #1a1a1a;
+  --muted: #6b6b6b;
+  --line: #e2e2df;
+  --accent: #1a1a1a;
+  --max-width: 34rem;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111110;
+    --fg: #ededeb;
+    --muted: #9a9a95;
+    --line: #2a2a28;
+    --accent: #ededeb;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 5rem 1.5rem 4rem;
+}
+
+/* --- Landing / header --- */
+
+.site-name {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.35rem;
+}
+
+.tagline {
+  color: var(--muted);
+  margin: 0 0 3rem;
+  font-size: 1.05rem;
+}
+
+/* --- Navigation list on landing page --- */
+
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.nav-list li {
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-list a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.05rem 0.25rem;
+  text-decoration: none;
+  color: var(--fg);
+  transition: padding-left 0.15s ease, color 0.15s ease;
+}
+
+.nav-list a:hover,
+.nav-list a:focus-visible {
+  padding-left: 0.6rem;
+  color: var(--muted);
+  outline: none;
+}
+
+.nav-list .label {
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+.nav-list .desc {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+/* --- Sub-page content --- */
+
+.back {
+  display: inline-block;
+  margin-bottom: 2.5rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.back:hover,
+.back:focus-visible {
+  color: var(--fg);
+}
+
+.page-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.5rem;
+}
+
+.content p {
+  margin: 0 0 1.1rem;
+}
+
+.content a {
+  color: var(--fg);
+  text-underline-offset: 2px;
+}
+
+/* --- Footer --- */
+
+.footer {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.footer a {
+  color: var(--muted);
+}
