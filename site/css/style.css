@@ -99,7 +99,10 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.1rem;
   padding: 1.6rem;
   min-height: 190px;
   background: var(--card);
@@ -151,22 +154,10 @@ body {
   background: linear-gradient(150deg, #4be08a 0%, #0ab894 100%);
 }
 
-.tile-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  margin-top: auto;
-}
-
 .tile-title {
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: -0.01em;
-}
-
-.tile-desc {
-  color: var(--muted);
-  font-size: 0.92rem;
 }
 
 .tile-arrow {
@@ -255,25 +246,7 @@ body {
   }
 
   .tile {
-    min-height: 0;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.1rem;
-  }
-
-  .tile-body {
-    margin-top: 0;
-  }
-
-  .tile-arrow {
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 1;
-  }
-
-  .tile:hover .tile-arrow,
-  .tile:focus-visible .tile-arrow {
-    transform: translateY(-50%);
+    min-height: 140px;
   }
 }
 
