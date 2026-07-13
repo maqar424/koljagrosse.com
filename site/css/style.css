@@ -1,26 +1,21 @@
 /* ------------------------------------------------------------------ *
- * koljagrosse.com — minimalistisches Stylesheet
+ * koljagrosse.com — Stylesheet (Apple-inspired, hell & minimalistisch)
  * ------------------------------------------------------------------ */
 
 :root {
-  --bg: #fafaf9;
-  --fg: #1a1a1a;
-  --muted: #6b6b6b;
-  --line: #e2e2df;
-  --accent: #1a1a1a;
+  --bg: #ffffff;
+  --fg: #1d1d1f;
+  --muted: #6e6e73;
+  --line: rgba(0, 0, 0, 0.08);
+  --card: #ffffff;
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.06), 0 18px 40px rgba(0, 0, 0, 0.12);
+  --radius: 22px;
   --max-width: 34rem;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #111110;
-    --fg: #ededeb;
-    --muted: #9a9a95;
-    --line: #2a2a28;
-    --accent: #ededeb;
-  }
+  --max-width-wide: 45rem;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * {
@@ -48,64 +43,152 @@ body {
   padding: 5rem 1.5rem 4rem;
 }
 
-/* --- Landing / header --- */
+.wrap--wide {
+  max-width: var(--max-width-wide);
+}
 
-.site-name {
+/* ------------------------------------------------------------------ *
+ * Landing — Hero
+ * ------------------------------------------------------------------ */
+
+.hero {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.hero-mark {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 1.4rem;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1.6rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
-  margin: 0 0 0.35rem;
+  letter-spacing: 0.01em;
+  color: #fff;
+  background: linear-gradient(150deg, #2b2b2f 0%, #1d1d1f 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
 }
 
-.tagline {
+.hero-title {
+  font-size: 2.6rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.3rem;
+}
+
+.hero-sub {
   color: var(--muted);
-  margin: 0 0 3rem;
-  font-size: 1.05rem;
-}
-
-/* --- Navigation list on landing page --- */
-
-.nav-list {
-  list-style: none;
+  font-size: 1.15rem;
   margin: 0;
-  padding: 0;
-  border-top: 1px solid var(--line);
 }
 
-.nav-list li {
-  border-bottom: 1px solid var(--line);
+/* ------------------------------------------------------------------ *
+ * Landing — Tiles
+ * ------------------------------------------------------------------ */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.1rem;
 }
 
-.nav-list a {
+.tile {
+  position: relative;
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1.05rem 0.25rem;
+  flex-direction: column;
+  gap: 1.4rem;
+  padding: 1.6rem;
+  min-height: 190px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
   text-decoration: none;
   color: var(--fg);
-  transition: padding-left 0.15s ease, color 0.15s ease;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  will-change: transform;
 }
 
-.nav-list a:hover,
-.nav-list a:focus-visible {
-  padding-left: 0.6rem;
-  color: var(--muted);
+.tile:hover,
+.tile:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: var(--card-shadow-hover);
   outline: none;
 }
 
-.nav-list .label {
-  font-size: 1.15rem;
-  font-weight: 500;
+.tile-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
 }
 
-.nav-list .desc {
+.tile-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.tile-icon--cv {
+  background: linear-gradient(150deg, #4aa3ff 0%, #0a84ff 100%);
+}
+
+.tile-icon--interests {
+  background: linear-gradient(150deg, #d16bff 0%, #ff2d92 100%);
+}
+
+.tile-icon--projects {
+  background: linear-gradient(150deg, #ffb340 0%, #ff7a00 100%);
+}
+
+.tile-icon--server {
+  background: linear-gradient(150deg, #4be08a 0%, #0ab894 100%);
+}
+
+.tile-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: auto;
+}
+
+.tile-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.tile-desc {
   color: var(--muted);
-  font-size: 0.9rem;
-  text-align: right;
+  font-size: 0.92rem;
 }
 
-/* --- Sub-page content --- */
+.tile-arrow {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  color: var(--muted);
+  font-size: 1.15rem;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.35s var(--ease), transform 0.35s var(--ease);
+}
+
+.tile:hover .tile-arrow,
+.tile:focus-visible .tile-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ------------------------------------------------------------------ *
+ * Sub-pages
+ * ------------------------------------------------------------------ */
 
 .back {
   display: inline-block;
@@ -113,6 +196,7 @@ body {
   color: var(--muted);
   text-decoration: none;
   font-size: 0.95rem;
+  transition: color 0.2s var(--ease);
 }
 
 .back:hover,
@@ -121,9 +205,9 @@ body {
 }
 
 .page-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   margin: 0 0 1.5rem;
 }
 
@@ -132,11 +216,13 @@ body {
 }
 
 .content a {
-  color: var(--fg);
+  color: #0a84ff;
   text-underline-offset: 2px;
 }
 
-/* --- Footer --- */
+/* ------------------------------------------------------------------ *
+ * Footer
+ * ------------------------------------------------------------------ */
 
 .footer {
   margin-top: 4rem;
@@ -144,8 +230,55 @@ body {
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.85rem;
+  text-align: center;
 }
 
 .footer a {
   color: var(--muted);
+}
+
+/* ------------------------------------------------------------------ *
+ * Responsive
+ * ------------------------------------------------------------------ */
+
+@media (max-width: 620px) {
+  .wrap {
+    padding: 3.5rem 1.25rem 3rem;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+  }
+
+  .tiles {
+    grid-template-columns: 1fr;
+  }
+
+  .tile {
+    min-height: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.1rem;
+  }
+
+  .tile-body {
+    margin-top: 0;
+  }
+
+  .tile-arrow {
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+  }
+
+  .tile:hover .tile-arrow,
+  .tile:focus-visible .tile-arrow {
+    transform: translateY(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
 }
