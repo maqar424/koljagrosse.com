@@ -5,11 +5,41 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #ffffff;
     margin: 0;
     padding: 40px 0;
     color: #000;
     -webkit-font-smoothing: antialiased;
+}
+
+/* --- Dezenter Zurück-Button zur Startseite --- */
+.back-home {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 9000;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1;
+    color: #8a8a8e;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    backdrop-filter: saturate(180%) blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 999px;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.back-home:hover,
+.back-home:focus-visible {
+    color: #1d1d1f;
+    border-color: rgba(0, 0, 0, 0.18);
+    outline: none;
 }
 
 /* Das A4-Blatt: zugeklappt exakt DIN A4 (210mm x 297mm).
@@ -440,7 +470,8 @@ body.pdf-mode {
 
 body.pdf-mode #click-hint,
 body.pdf-mode summary::after,
-body.pdf-mode .dropdown-content {
+body.pdf-mode .dropdown-content,
+body.pdf-mode .back-home {
     display: none !important;
 }
 
@@ -514,6 +545,7 @@ body.pdf-mode .date {
     #click-hint { display: none !important; }
     summary::after { display: none !important; }
     .dropdown-content { display: none !important; } /* Alles zugeklappt */
+    .back-home { display: none !important; }
 
 
     /* Links klickbar machen */
