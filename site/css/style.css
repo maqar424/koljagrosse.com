@@ -54,6 +54,7 @@ body {
 .hero {
   text-align: center;
   margin-bottom: 3.5rem;
+  transition: opacity 0.5s var(--ease);
 }
 
 .hero-mark {
@@ -111,7 +112,9 @@ body {
   box-shadow: var(--card-shadow);
   text-decoration: none;
   color: var(--fg);
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease),
+    opacity 0.4s var(--ease), background 0.4s var(--ease),
+    border-color 0.4s var(--ease);
   will-change: transform;
 }
 
@@ -142,16 +145,16 @@ body {
   background: linear-gradient(150deg, #4aa3ff 0%, #0a84ff 100%);
 }
 
-.tile-icon--interests {
-  background: linear-gradient(150deg, #d16bff 0%, #ff2d92 100%);
-}
-
 .tile-icon--projects {
   background: linear-gradient(150deg, #ffb340 0%, #ff7a00 100%);
 }
 
-.tile-icon--server {
-  background: linear-gradient(150deg, #4be08a 0%, #0ab894 100%);
+.tile-icon--aviation {
+  background: linear-gradient(150deg, #64d2ff 0%, #0a84ff 100%);
+}
+
+.tile-icon--f1 {
+  background: linear-gradient(150deg, #ff6b5e 0%, #ff3b30 100%);
 }
 
 .tile-title {
@@ -175,6 +178,64 @@ body {
 .tile:focus-visible .tile-arrow {
   opacity: 1;
   transform: translateX(0);
+}
+
+/* ------------------------------------------------------------------ *
+ * Landing — Hover: Vollbild-Hintergrundbild + Fokus auf eine Kachel
+ * ------------------------------------------------------------------ */
+
+.hover-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hover-bg-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+
+/* Nur auf Geräten mit echtem Hover (Desktop). Touch-Geräte laden die
+   großen Bilder nicht und behalten das schlichte weiße Layout. */
+@media (hover: hover) {
+  .hover-bg--lebenslauf { background-image: url("/images/lebenslauf.jpg"); }
+  .hover-bg--projekte   { background-image: url("/images/heimnetzwerk.jpg"); }
+  .hover-bg--aviation   { background-image: url("/images/aviation.jpg"); }
+  .hover-bg--f1         { background-image: url("/images/f1.jpg"); }
+
+  body:has(.tile--lebenslauf:hover) .hover-bg--lebenslauf,
+  body:has(.tile--projekte:hover) .hover-bg--projekte,
+  body:has(.tile--aviation:hover) .hover-bg--aviation,
+  body:has(.tile--f1:hover) .hover-bg--f1 {
+    opacity: 1;
+  }
+
+  /* Die drei nicht gehoverten Kacheln ausblenden */
+  .tiles:has(.tile:hover) .tile:not(:hover) {
+    opacity: 0;
+    transform: scale(0.96);
+    pointer-events: none;
+  }
+
+  /* Übrige Chrome-Elemente zurücknehmen, damit das Foto wirkt */
+  body:has(.tile:hover) .hero,
+  body:has(.tile:hover) .footer {
+    opacity: 0;
+  }
+
+  /* Gehoverte Kachel als Milchglas über dem Foto */
+  .tiles:has(.tile:hover) .tile:hover {
+    background: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
 }
 
 /* ------------------------------------------------------------------ *
@@ -222,6 +283,7 @@ body {
   color: var(--muted);
   font-size: 0.85rem;
   text-align: center;
+  transition: opacity 0.5s var(--ease);
 }
 
 .footer a {

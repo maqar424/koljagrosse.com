@@ -49,7 +49,7 @@ body {
     min-height: 297mm;     /* Mindestens A4 hoch, wächst mit geöffnetem Inhalt */
     margin: 40px auto;     /* Zentriert mit Abstand zum Fensterrand */
     background-color: #fff;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 45px rgba(0,0,0,0.22);
     box-sizing: border-box;
     position: relative;
 }
@@ -105,6 +105,15 @@ p {
     font-size: 14px;
     line-height: 1.5;
     margin: 4px 0;
+}
+
+/* Dezenter Hinweis oben: erklärt die Klick-Interaktion */
+.klick-hinweis {
+    text-align: center;
+    color: #9aa0a6;
+    font-size: 12.5px;
+    font-style: italic;
+    margin: 0 0 4px 0;
 }
 
 /* Zentrierte Links (z.B. LinkedIn) */
@@ -237,39 +246,11 @@ summary::marker { content: ""; display: none !important; }
     50% { transform: translateX(10px); }
 }
 
-/* C) Graue Pfeile rechts (für Dropdowns) */
-summary::after {
-    content: '←';         
-    position: absolute;
-    /* Position rechts außerhalb des Blattes */
-    right: -80px;         
-    top: -5px;           
-    
-    color: #bbb;          
-    font-size: 24px;
-    font-weight: lighter;
-    pointer-events: none; 
-    transition: opacity 0.3s;
-}
-
-/* Wenn besucht (Klasse per JS), Pfeil ausblenden */
-details.visited summary::after {
-    display: none !important;
-}
-
-/* D) Spezial-Pfeil für den Header */
-#header-details summary::after {
-    display: block;
-    top: 50px;           
-    right: -80px;        
-}
-
 /* --- 7. RESPONSIVE DESIGN (MOBILE & TABLET) --- */
 
 /* A) Tablet & kleine Laptops (unter 1100px) */
 @media (max-width: 1100px) {
     #click-hint { display: none; }
-    summary::after { display: none; }
 }
 
 /* B) Smartphones (unter 850px) */
@@ -393,6 +374,84 @@ details.visited summary::after {
     cursor: pointer;
 }
 
+/* --- POPUP / MODAL (Detail-Ansicht der Lebenslauf-Einträge) --- */
+body.modal-open {
+    overflow: hidden; /* Hintergrund nicht scrollen, während Popup offen ist */
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    z-index: 11000;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-box {
+    position: relative;
+    width: 100%;
+    max-width: 760px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 45px rgba(0, 0, 0, 0.3);
+    padding: 30px 34px 34px;
+
+    transform: translateY(14px);
+    transition: transform 0.25s ease;
+
+    /* Scrollbalken ausblenden (Inhalt bleibt scrollbar) – Firefox / alte Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.modal-overlay.open .modal-box {
+    transform: translateY(0);
+}
+
+/* Scrollbalken ausblenden – Chrome / Safari (Popup selbst und die Bild-Slider) */
+.modal-box::-webkit-scrollbar,
+.modal-body .horizontal-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-body .horizontal-slider {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* Der eingefügte Dropdown-Inhalt braucht im Popup keine Trennlinien/Ränder */
+.modal-body img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.modal-body p {
+    text-align: left;
+}
+
+/* Popup nie in die PDF/den Druck übernehmen */
+@media print {
+    .modal-overlay { display: none !important; }
+}
+
 /* --- 7b. ANSCHREIBEN (anschreiben.html) --- */
 
 /* Gleiche Header-Höhe wie auf der Lebenslauf-Seite (dort addiert das
@@ -469,7 +528,7 @@ body.pdf-mode {
 }
 
 body.pdf-mode #click-hint,
-body.pdf-mode summary::after,
+body.pdf-mode .klick-hinweis,
 body.pdf-mode .dropdown-content,
 body.pdf-mode .back-home {
     display: none !important;
@@ -543,7 +602,7 @@ body.pdf-mode .date {
     /* Unnötiges ausblenden */
     #download-btn { display: none !important; }
     #click-hint { display: none !important; }
-    summary::after { display: none !important; }
+    .klick-hinweis { display: none !important; }
     .dropdown-content { display: none !important; } /* Alles zugeklappt */
     .back-home { display: none !important; }
 

@@ -9,6 +9,14 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="home">
+
+  <div class="hover-bg" aria-hidden="true">
+    <div class="hover-bg-layer hover-bg--lebenslauf"></div>
+    <div class="hover-bg-layer hover-bg--projekte"></div>
+    <div class="hover-bg-layer hover-bg--aviation"></div>
+    <div class="hover-bg-layer hover-bg--f1"></div>
+  </div>
+
   <main class="wrap wrap--wide">
     <header class="hero">
       <div class="hero-mark" aria-hidden="true">KG</div>
@@ -18,7 +26,7 @@
 
     <nav class="tiles" aria-label="Hauptnavigation">
 
-      <a class="tile" href="/lebenslauf/">
+      <a class="tile tile--lebenslauf" href="/lebenslauf/">
         <span class="tile-icon tile-icon--cv" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="5" y="3" width="14" height="18" rx="3" fill="currentColor"/>
@@ -31,7 +39,7 @@
         <span class="tile-arrow" aria-hidden="true">→</span>
       </a>
 
-      <a class="tile" href="/projekte">
+      <a class="tile tile--projekte" href="/projekte">
         <span class="tile-icon tile-icon--projects" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="3" y="3" width="8" height="8" rx="2.5" fill="currentColor"/>
@@ -44,27 +52,26 @@
         <span class="tile-arrow" aria-hidden="true">→</span>
       </a>
 
-      <a class="tile" href="/server-setup">
-        <span class="tile-icon tile-icon--server" aria-hidden="true">
+      <a class="tile tile--aviation" href="/server-setup">
+        <span class="tile-icon tile-icon--aviation" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="4" width="16" height="5.5" rx="2" fill="currentColor"/>
-            <rect x="4" y="14.5" width="16" height="5.5" rx="2" fill="#fff" fill-opacity="0.6"/>
-            <circle cx="7.5" cy="6.75" r="1.1" fill="#fff"/>
-            <circle cx="7.5" cy="17.25" r="1.1" fill="currentColor"/>
+            <path d="M21 12.5 3.5 19l3-6.5-3-6.5L21 11.5a0.5 0.5 0 0 1 0 1z" fill="currentColor"/>
+            <path d="m6.5 12.5 8-1-8-1z" fill="#fff" fill-opacity="0.7"/>
           </svg>
         </span>
-        <span class="tile-title">Mein Server Setup</span>
+        <span class="tile-title">Aviation</span>
         <span class="tile-arrow" aria-hidden="true">→</span>
       </a>
 
-      <a class="tile" href="/interessen">
-        <span class="tile-icon tile-icon--interests" aria-hidden="true">
+      <a class="tile tile--f1" href="/interessen">
+        <span class="tile-icon tile-icon--f1" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="9" cy="9" r="5" fill="currentColor"/>
-            <circle cx="16" cy="15" r="6" fill="#fff" fill-opacity="0.55"/>
+            <circle cx="6.5" cy="17.5" r="3" fill="currentColor"/>
+            <circle cx="17.5" cy="17.5" r="3" fill="currentColor"/>
+            <path d="M4 15c1.5-6 4-9 9-9h5l-2 4h-6c-2 0-3 2-4 5z" fill="#fff" fill-opacity="0.75"/>
           </svg>
         </span>
-        <span class="tile-title">Persönliche Interessen</span>
+        <span class="tile-title">Formula 1</span>
         <span class="tile-arrow" aria-hidden="true">→</span>
       </a>
 
