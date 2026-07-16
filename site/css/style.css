@@ -203,10 +203,10 @@ body {
   background-size: cover;
   background-position: center;
   opacity: 0;
-  /* Gaußscher Weichzeichner; leichte Skalierung kaschiert die
+  /* Leichter Gaußscher Weichzeichner; kleine Skalierung kaschiert die
      ausgefransten Ränder, die durch den Blur entstehen. */
-  filter: blur(13px);
-  transform: scale(1.08);
+  filter: blur(2px);
+  transform: scale(1.04);
   transition: opacity 0.6s var(--ease);
 }
 
