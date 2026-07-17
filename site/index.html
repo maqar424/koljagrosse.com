@@ -12,9 +12,8 @@
 
   <div class="hover-bg" aria-hidden="true">
     <div class="hover-bg-layer hover-bg--lebenslauf"></div>
+    <div class="hover-bg-layer hover-bg--interessen"></div>
     <div class="hover-bg-layer hover-bg--projekte"></div>
-    <div class="hover-bg-layer hover-bg--aviation"></div>
-    <div class="hover-bg-layer hover-bg--f1"></div>
     <div class="hover-bg-scrim"></div>
   </div>
 
@@ -26,7 +25,8 @@
 
     <nav class="tiles" aria-label="Hauptnavigation">
 
-      <a class="tile tile--lebenslauf" href="/lebenslauf/">
+      <!-- 1 · Lebenslauf -->
+      <a class="tile tile--lebenslauf tile--takeover" href="/lebenslauf/">
         <span class="tile-icon tile-icon--cv" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="5" y="3" width="14" height="18" rx="3" fill="currentColor"/>
@@ -39,7 +39,31 @@
         <span class="tile-arrow" aria-hidden="true">→</span>
       </a>
 
-      <a class="tile tile--projekte" href="/projekte" data-projects-toggle aria-expanded="false">
+      <!-- 2 · GitHub (externer Link, kein 2nd menu level) -->
+      <a class="tile tile--github" href="https://github.com/maqar424" target="_blank" rel="noopener">
+        <span class="tile-icon tile-icon--github" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+        </span>
+        <span class="tile-title">GitHub</span>
+        <span class="tile-arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <!-- 3 · Meine Interessen (2nd menu level) -->
+      <a class="tile tile--interessen tile--takeover" href="#" data-menu-toggle="interessen" aria-expanded="false">
+        <span class="tile-icon tile-icon--interests" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="9" cy="9" r="5" fill="currentColor"/>
+            <circle cx="16" cy="15" r="6" fill="#fff" fill-opacity="0.55"/>
+          </svg>
+        </span>
+        <span class="tile-title">Meine Interessen</span>
+        <span class="tile-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <!-- 4 · Private Projekte (2nd menu level) -->
+      <a class="tile tile--projekte tile--takeover" href="/projekte" data-menu-toggle="projekte" aria-expanded="false">
         <span class="tile-icon tile-icon--projects" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="3" y="3" width="8" height="8" rx="2.5" fill="currentColor"/>
@@ -52,7 +76,8 @@
         <span class="tile-arrow" aria-hidden="true">→</span>
       </a>
 
-      <a class="tile tile--aviation" href="/aviation">
+      <!-- 2nd menu level: Meine Interessen -->
+      <a class="tile tile--sub sub-of-interessen sub-aviation" href="/aviation">
         <span class="tile-icon tile-icon--aviation" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 12.5 3.5 19l3-6.5-3-6.5L21 11.5a0.5 0.5 0 0 1 0 1z" fill="currentColor"/>
@@ -63,7 +88,7 @@
         <span class="tile-arrow" aria-hidden="true">→</span>
       </a>
 
-      <a class="tile tile--f1" href="/formula-1">
+      <a class="tile tile--sub sub-of-interessen sub-formel1" href="/formula-1">
         <span class="tile-icon tile-icon--f1" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="6.5" cy="17.5" r="3" fill="currentColor"/>
@@ -71,12 +96,23 @@
             <path d="M4 15c1.5-6 4-9 9-9h5l-2 4h-6c-2 0-3 2-4 5z" fill="#fff" fill-opacity="0.75"/>
           </svg>
         </span>
-        <span class="tile-title">Formula 1</span>
+        <span class="tile-title">Formel 1</span>
         <span class="tile-arrow" aria-hidden="true">→</span>
       </a>
 
-      <!-- Projekt-Unterkacheln: erscheinen beim Klick auf "Private Projekte" -->
-      <a class="tile tile--sub sub-heimnetz" href="#">
+      <a class="tile tile--sub sub-of-interessen sub-foto" href="/fotografie">
+        <span class="tile-icon tile-icon--foto" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.2 4.4c.3-.55.88-.9 1.51-.9h2.58c.63 0 1.21.35 1.51.9l.7 1.3H19a3 3 0 0 1 3 3v8.3a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V8.7a3 3 0 0 1 3-3h3.5l.7-1.3z" fill="#fff" fill-opacity="0.55"/>
+            <circle cx="12" cy="12.8" r="4" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="tile-title">Fotografie</span>
+        <span class="tile-arrow" aria-hidden="true">→</span>
+      </a>
+
+      <!-- 2nd menu level: Private Projekte -->
+      <a class="tile tile--sub sub-of-projekte sub-heimnetz" href="#">
         <span class="tile-icon tile-icon--heimnetz" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="4" y="5" width="16" height="6" rx="2" fill="currentColor"/>
@@ -89,7 +125,7 @@
         <span class="tile-arrow" aria-hidden="true">→</span>
       </a>
 
-      <a class="tile tile--sub sub-fashion" href="#">
+      <a class="tile tile--sub sub-of-projekte sub-fashion" href="#">
         <span class="tile-icon tile-icon--fashion" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="7" cy="7" r="1.7" fill="#fff"/>
@@ -107,7 +143,7 @@
         <span class="tile-arrow" aria-hidden="true">→</span>
       </a>
 
-      <a class="tile tile--sub sub-aws" href="#">
+      <a class="tile tile--sub sub-of-projekte sub-aws" href="#">
         <span class="tile-icon tile-icon--aws" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="8.5" fill="currentColor"/>
@@ -131,21 +167,28 @@
 
     (function () {
       var body = document.body;
-      var projekte = document.querySelector('[data-projects-toggle]');
-      if (!projekte) return;
+      var toggles = Array.prototype.slice.call(document.querySelectorAll('[data-menu-toggle]'));
 
-      function setOpen(open) {
-        body.classList.toggle('projects-open', open);
-        projekte.setAttribute('aria-expanded', open ? 'true' : 'false');
+      function closeAll() {
+        body.classList.remove('menu-open', 'menu-open--interessen', 'menu-open--projekte');
+        toggles.forEach(function (t) { t.setAttribute('aria-expanded', 'false'); });
       }
 
-      projekte.addEventListener('click', function (e) {
-        e.preventDefault();
-        setOpen(!body.classList.contains('projects-open'));
+      toggles.forEach(function (t) {
+        t.addEventListener('click', function (e) {
+          e.preventDefault();
+          var cls = 'menu-open--' + t.getAttribute('data-menu-toggle');
+          var wasOpen = body.classList.contains(cls);
+          closeAll();
+          if (!wasOpen) {
+            body.classList.add('menu-open', cls);
+            t.setAttribute('aria-expanded', 'true');
+          }
+        });
       });
 
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') setOpen(false);
+        if (e.key === 'Escape') closeAll();
       });
     })();
   </script>

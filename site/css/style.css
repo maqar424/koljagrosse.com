@@ -161,6 +161,18 @@ body {
   background: linear-gradient(150deg, #ff6b5e 0%, #ff3b30 100%);
 }
 
+.tile-icon--github {
+  background: linear-gradient(150deg, #40464e 0%, #24292f 100%);
+}
+
+.tile-icon--interests {
+  background: linear-gradient(150deg, #d16bff 0%, #ff2d92 100%);
+}
+
+.tile-icon--foto {
+  background: linear-gradient(150deg, #7d7aff 0%, #5e5ce6 100%);
+}
+
 .tile-icon--heimnetz {
   background: linear-gradient(150deg, #4be08a 0%, #0ab894 100%);
 }
@@ -236,58 +248,58 @@ body {
    großen Bilder nicht und behalten das schlichte weiße Layout. */
 @media (hover: hover) {
   .hover-bg--lebenslauf { background-image: url("/images/lebenslauf.jpg"); }
+  .hover-bg--interessen { background-image: url("/images/aviation.jpg"); }
   .hover-bg--projekte   { background-image: url("/images/heimnetzwerk.jpg"); }
-  .hover-bg--aviation   { background-image: url("/images/aviation.jpg"); }
-  .hover-bg--f1         { background-image: url("/images/f1.jpg"); }
 
-  body:not(.projects-open):has(.tile--lebenslauf:hover) .hover-bg--lebenslauf,
-  body:not(.projects-open):has(.tile--projekte:hover) .hover-bg--projekte,
-  body:not(.projects-open):has(.tile--aviation:hover) .hover-bg--aviation,
-  body:not(.projects-open):has(.tile--f1:hover) .hover-bg--f1 {
+  body:not(.menu-open):has(.tile--lebenslauf:hover) .hover-bg--lebenslauf,
+  body:not(.menu-open):has(.tile--interessen:hover) .hover-bg--interessen,
+  body:not(.menu-open):has(.tile--projekte:hover) .hover-bg--projekte {
     opacity: 1;
   }
 
-  body:not(.projects-open):has(.tile:hover) .hover-bg-scrim {
+  /* Nur Kacheln mit Foto (.tile--takeover) lösen die Vollbild-Ansicht
+     aus — GitHub bleibt eine normale Karte. */
+  body:not(.menu-open):has(.tile--takeover:hover) .hover-bg-scrim {
     opacity: 1;
   }
 
   /* Header bleibt sichtbar, wechselt für Kontrast auf helle Schrift */
-  body:not(.projects-open):has(.tile:hover) .hero-title {
+  body:not(.menu-open):has(.tile--takeover:hover) .hero-title {
     color: #fff;
     text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
   }
 
   /* Logo hebt sich per feinem weißen Ring vom Foto ab */
-  body:not(.projects-open):has(.tile:hover) .hero-mark {
+  body:not(.menu-open):has(.tile--takeover:hover) .hero-mark {
     box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.55), 0 12px 34px rgba(0, 0, 0, 0.4);
   }
 
   /* Footer bleibt dezent präsent */
-  body:not(.projects-open):has(.tile:hover) .footer {
+  body:not(.menu-open):has(.tile--takeover:hover) .footer {
     color: rgba(255, 255, 255, 0.65);
     border-top-color: rgba(255, 255, 255, 0.2);
   }
 
   /* Die drei nicht gehoverten Kacheln: minimalistische Geister-Chips,
      weiterhin sichtbar und klickbar */
-  body:not(.projects-open) .tiles:has(.tile:hover) .tile:not(:hover) {
+  body:not(.menu-open) .tiles:has(.tile--takeover:hover) .tile:not(:hover) {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.22);
     box-shadow: none;
     transform: scale(0.97);
   }
 
-  body:not(.projects-open) .tiles:has(.tile:hover) .tile:not(:hover) .tile-title {
+  body:not(.menu-open) .tiles:has(.tile--takeover:hover) .tile:not(:hover) .tile-title {
     color: rgba(255, 255, 255, 0.82);
   }
 
-  body:not(.projects-open) .tiles:has(.tile:hover) .tile:not(:hover) .tile-icon {
+  body:not(.menu-open) .tiles:has(.tile--takeover:hover) .tile:not(:hover) .tile-icon {
     opacity: 0.5;
     box-shadow: none;
   }
 
   /* Gehoverte Kachel als Milchglas-Fokus über dem Foto */
-  body:not(.projects-open) .tiles:has(.tile:hover) .tile:hover {
+  body:not(.menu-open) .tiles:has(.tile--takeover:hover) .tile--takeover:hover {
     background: rgba(255, 255, 255, 0.55);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
@@ -297,7 +309,8 @@ body {
 }
 
 /* ------------------------------------------------------------------ *
- * Landing — Klick auf "Private Projekte": Projekt-Ansicht
+ * Landing — 2nd menu level: Klick auf "Meine Interessen" bzw.
+ * "Private Projekte" ersetzt die übrigen Kacheln durch Unterkacheln.
  * ------------------------------------------------------------------ */
 
 /* Unterkacheln sind standardmäßig ausgeblendet */
@@ -305,50 +318,67 @@ body {
   display: none;
 }
 
-/* Hintergrund bleibt fest stehen (auch ohne Hover) */
-body.projects-open .hover-bg--projekte {
+/* Hintergrund bleibt fest stehen (auch ohne Hover); background-image
+   hier gesetzt, damit es auch auf Touch-Geräten funktioniert. */
+body.menu-open--interessen .hover-bg--interessen {
+  background-image: url("/images/aviation.jpg");
+  opacity: 1;
+}
+
+body.menu-open--projekte .hover-bg--projekte {
   background-image: url("/images/heimnetzwerk.jpg");
   opacity: 1;
 }
 
-body.projects-open .hover-bg-scrim {
+body.menu-open .hover-bg-scrim {
   opacity: 1;
 }
 
-body.projects-open .hero-title {
+body.menu-open .hero-title {
   color: #fff;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
 }
 
-body.projects-open .hero-mark {
+body.menu-open .hero-mark {
   box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.55), 0 12px 34px rgba(0, 0, 0, 0.4);
 }
 
-body.projects-open .footer {
+body.menu-open .footer {
   color: rgba(255, 255, 255, 0.65);
   border-top-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Die drei Standardkacheln ausblenden ... */
-body.projects-open .tile--lebenslauf,
-body.projects-open .tile--aviation,
-body.projects-open .tile--f1 {
+/* Die drei anderen Hauptkacheln ausblenden ... */
+body.menu-open--interessen .tile--lebenslauf,
+body.menu-open--interessen .tile--github,
+body.menu-open--interessen .tile--projekte,
+body.menu-open--projekte .tile--lebenslauf,
+body.menu-open--projekte .tile--github,
+body.menu-open--projekte .tile--interessen {
   display: none;
 }
 
-/* ... und an gleicher Stelle durch die Unterkacheln ersetzen */
-body.projects-open .tile--sub {
+/* ... und an gleicher Stelle durch die eigenen Unterkacheln ersetzen */
+body.menu-open--interessen .sub-of-interessen,
+body.menu-open--projekte .sub-of-projekte {
   display: flex;
   animation: tile-in 0.45s var(--ease) both;
 }
 
-body.projects-open .tile--projekte { order: 2; }
-body.projects-open .sub-heimnetz   { order: 1; }
-body.projects-open .sub-fashion    { order: 3; }
-body.projects-open .sub-aws        { order: 4; }
+/* Die Toggle-Kachel bleibt an ihrer Position:
+   "Meine Interessen" unten links (3), "Private Projekte" unten rechts (4) */
+body.menu-open--interessen .sub-aviation     { order: 1; }
+body.menu-open--interessen .sub-formel1      { order: 2; }
+body.menu-open--interessen .tile--interessen { order: 3; }
+body.menu-open--interessen .sub-foto         { order: 4; }
+
+body.menu-open--projekte .sub-heimnetz   { order: 1; }
+body.menu-open--projekte .sub-fashion    { order: 2; }
+body.menu-open--projekte .sub-aws        { order: 3; }
+body.menu-open--projekte .tile--projekte { order: 4; }
 
 /* Alle sichtbaren Kacheln als Milchglas über dem Foto */
-body.projects-open .tiles .tile {
+body.menu-open .tiles .tile {
   background: rgba(255, 255, 255, 0.5);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
@@ -357,12 +387,13 @@ body.projects-open .tiles .tile {
 }
 
 /* Die gewählte Kachel etwas heller hervorheben */
-body.projects-open .tiles .tile--projekte {
+body.menu-open--interessen .tiles .tile--interessen,
+body.menu-open--projekte .tiles .tile--projekte {
   background: rgba(255, 255, 255, 0.66);
   border-color: rgba(255, 255, 255, 0.85);
 }
 
-body.projects-open .tiles .tile:hover {
+body.menu-open .tiles .tile:hover {
   transform: translateY(-6px);
   box-shadow: 0 26px 60px rgba(0, 0, 0, 0.38);
 }
