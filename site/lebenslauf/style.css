@@ -460,6 +460,13 @@ body.anschreiben-seite header {
     padding-bottom: 30px;
 }
 
+/* Kontaktangaben im Header sind klickbar (E-Mail, Adresse -> Maps), sollen
+   aber wie normaler Text aussehen: gleiche Farbe, keine Unterstreichung. */
+body.anschreiben-seite .header-right a {
+    color: inherit;
+    text-decoration: none;
+}
+
 .anschreiben .empfaenger {
     margin: 10px 0 35px 0;
 }
