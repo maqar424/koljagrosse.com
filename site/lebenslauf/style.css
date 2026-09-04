@@ -492,9 +492,9 @@ body.anschreiben-seite .header-right a {
 
 .anschreiben .unterschrift-bild {
     display: block;
-    width: 170px;        /* handschriftliche Unterschrift, dezent skaliert */
+    width: 195px;        /* handschriftliche Unterschrift, dezent skaliert (+15%) */
     height: auto;
-    margin: 6px 0 2px 0;
+    margin: 31px 0 2px 0; /* etwas tiefer unter dem Gruß platziert */
 }
 
 .anschreiben .unterschrift-name {
