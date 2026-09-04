@@ -1,7 +1,7 @@
 // CloudFront Function (viewer-request) — Clean URLs für ein statisches S3-Setup.
 //
-//   /                    -> 302-Redirect auf /lebenslauf/ (Startseite ist ausgeblendet,
-//                           bleibt aber unter /index.html erreichbar)
+//   /  und /index.html   -> 302-Redirect auf /lebenslauf/ (Landingpage ist komplett
+//                           ausgeblendet und unter keiner URL direkt erreichbar)
 //   /lebenslauf/         -> /lebenslauf/index.html
 //   /aviation            -> /aviation.html
 //   /datasolut_bewerbung -> /lebenslauf/datasolut_anschreiben.html (Anschreiben,
@@ -12,9 +12,10 @@ function handler(event) {
   var request = event.request;
   var uri = request.uri;
 
-  // Nur der Lebenslauf wird angezeigt: Root leitet direkt dorthin um.
-  // 302 statt 301, damit Browser die Umleitung nicht dauerhaft cachen.
-  if (uri === '/') {
+  // Nur der Lebenslauf wird angezeigt: Root und die direkte Landingpage-URL
+  // leiten dorthin um. 302 statt 301, damit Browser die Umleitung nicht
+  // dauerhaft cachen.
+  if (uri === '/' || uri === '/index.html') {
     return {
       statusCode: 302,
       statusDescription: 'Found',
