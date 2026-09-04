@@ -206,6 +206,66 @@ summary::marker { content: ""; display: none !important; }
     font-size: 13px;
 }
 
+/* Validierungs-Block unter dem AWS-Zertifikat im Popup */
+.cert-validation {
+    margin-top: 18px;
+    text-align: center;
+}
+
+.cert-validation-number {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.cert-label {
+    color: #555;
+    font-weight: bold;
+}
+
+.cert-number {
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    color: #000;
+    background: #f4f4f4;
+    padding: 3px 8px;
+    border-radius: 4px;
+    word-break: break-all;
+}
+
+.copy-validation-btn {
+    border: 1px solid #bdc3c7;
+    background: #fff;
+    color: #2c3e50;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.copy-validation-btn:hover {
+    background: #2c3e50;
+    color: #fff;
+    border-color: #2c3e50;
+}
+
+.copy-validation-btn.copied {
+    background: #27ae60;
+    color: #fff;
+    border-color: #27ae60;
+}
+
+/* Höhere Spezifität als .modal-body p (sonst würde dessen text-align:left greifen) */
+.cert-validation .cert-validate-link {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
 /* --- 5. SLIDER & BILDER --- */
 .horizontal-slider {
     display: flex;

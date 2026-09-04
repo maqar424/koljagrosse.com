@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lebenslauf - Kolja Grosse</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -77,6 +77,17 @@
                 </summary>
                 <div class="dropdown-content">
                     <img src="documents/AWS_CCP_2026_02.png" alt="AWS Certified Cloud Practitioner Zertifikat" style="width: 100%; height: auto; display: block;">
+
+                    <div class="cert-validation">
+                        <div class="cert-validation-number">
+                            <span class="cert-label">Validierungsnummer:</span>
+                            <code class="cert-number">1df733ee3d83433299be9ffbca4ea2ec</code>
+                            <button type="button" class="copy-validation-btn" data-copy="1df733ee3d83433299be9ffbca4ea2ec">Kopieren</button>
+                        </div>
+                        <p class="cert-validate-link">
+                            <a href="https://aws.amazon.com/verification" target="_blank" rel="noopener">Bei AWS verifizieren &nbsp;&#8599;</a>
+                        </p>
+                    </div>
                 </div>
             </details>
 
@@ -111,9 +122,7 @@
                     </span>
                 </summary>
                 <div class="dropdown-content">
-                    <p>Bisher belegte Module: Java-Programmierung, Datenbanken, Datenvisualisierung, Mathematik und Logik sowie Softwaretechnik.</p>
-                    <iframe class="pdf-embed" src="documents/TRANSCRIPT_OF_RECORDS_04_09_2026.pdf" title="Transcript of Records – Universität zu Köln"></iframe>
-                    <p class="pdf-fallback"><a href="documents/TRANSCRIPT_OF_RECORDS_04_09_2026.pdf" target="_blank" rel="noopener">Transcript of Records als PDF öffnen</a></p>
+                    <iframe class="pdf-embed" src="documents/TRANSCRIPT_OF_RECORDS_04_09_2026.pdf#toolbar=0&navpanes=0&view=FitH" title="Transcript of Records – Universität zu Köln"></iframe>
                 </div>
             </details>
 
@@ -302,10 +311,52 @@
 
         // Schließen: Ein Linksklick irgendwo (auch auf dem Popup selbst) oder Escape.
         // 'click' feuert nur bei der linken Maustaste – Rechtsklick löst 'contextmenu' aus.
-        modalOverlay.addEventListener('click', closeModal);
+        // Ausnahme: Klicks auf interaktive Elemente (Links, Buttons) im Popup schließen
+        // NICHT – sie sollen ihre eigene Aktion ausführen (z.B. Kopieren, Link öffnen).
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target.closest('a, button')) return;
+            closeModal();
+        });
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && modalOverlay.classList.contains('open')) closeModal();
         });
+
+        // "Kopieren"-Button im Popup (z.B. AWS-Validierungsnummer). Delegiert, da der
+        // Popup-Inhalt beim Öffnen per innerHTML geklont wird (Listener am Original gingen verloren).
+        modalBody.addEventListener('click', function(e) {
+            const btn = e.target.closest('.copy-validation-btn');
+            if (!btn) return;
+            const text = btn.getAttribute('data-copy') || '';
+            const zeigeErfolg = function() {
+                const orig = btn.dataset.label || btn.textContent;
+                btn.dataset.label = orig;
+                btn.textContent = 'Kopiert!';
+                btn.classList.add('copied');
+                setTimeout(function() {
+                    btn.textContent = btn.dataset.label;
+                    btn.classList.remove('copied');
+                }, 1500);
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(zeigeErfolg).catch(function() {
+                    fallbackKopieren(text); zeigeErfolg();
+                });
+            } else {
+                fallbackKopieren(text); zeigeErfolg();
+            }
+        });
+
+        // Fallback für ältere Browser / kein Clipboard-API (unsicherer Kontext)
+        function fallbackKopieren(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(ta);
+        }
 
         // 3. PDF-DOWNLOAD: Erzeugt eine einseitige DIN-A4-Vektor-PDF direkt aus der
         // Seite (echter Text statt Bild, verlustfrei zoombar; Logik in pdf.js)
