@@ -511,6 +511,7 @@ body.anschreiben-seite .header-right a {
 
 .anschreiben .absatz {
     margin-bottom: 16px;
+    text-align: justify; /* Blocksatz für den Fließtext des Anschreibens */
 }
 
 .anschreiben .gruss {
