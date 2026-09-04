@@ -179,6 +179,33 @@ summary::marker { content: ""; display: none !important; }
     border-bottom: 1px solid #eee;
 }
 
+/* Klickbarer ganzer Abschnitt (z.B. IT-Kenntnisse): das <summary> umschließt
+   Überschrift UND Zeilen – daher als Block statt im Zwei-Spalten-Raster. */
+.section-summary {
+    display: block;
+}
+
+/* Als Link ausgeführte Projektzeile: sieht wie normaler Text aus, ist klickbar */
+.project-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Eingebettetes PDF im Popup (z.B. Transcript of Records) */
+.pdf-embed {
+    width: 100%;
+    height: 70vh;
+    border: none;
+    display: block;
+    background: #fff;
+}
+
+.pdf-fallback {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+}
+
 /* --- 5. SLIDER & BILDER --- */
 .horizontal-slider {
     display: flex;
