@@ -12,6 +12,9 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
+# Lokale, nicht zu veröffentlichende Dokumente (z.B. Zeugnisse/Transcripts)
+/private/
+
 # OS / Editor
 .DS_Store
 Thumbs.db
