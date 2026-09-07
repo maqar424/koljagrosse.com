@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lebenslauf - Kolja Grosse</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -122,7 +122,7 @@
                     </span>
                 </summary>
                 <div class="dropdown-content">
-                    <iframe class="pdf-embed" src="documents/TRANSCRIPT_OF_RECORDS_04_09_2026.pdf#toolbar=0&navpanes=0&view=FitH" title="Transcript of Records – Universität zu Köln"></iframe>
+                    <div class="pdf-render" data-pdf="documents/TRANSCRIPT_OF_RECORDS_04_09_2026.pdf"></div>
                 </div>
             </details>
 
@@ -284,6 +284,10 @@
             modalOverlay.classList.add('open');
             modalOverlay.setAttribute('aria-hidden', 'false');
             document.body.classList.add('modal-open');
+
+            // PDF (z.B. Transcript) universell rendern – als Canvas via PDF.js,
+            // damit es in jedem Browser gleich und ohne Viewer-UI angezeigt wird.
+            renderPdfInModal();
         }
 
         function closeModal() {
@@ -291,6 +295,68 @@
             modalOverlay.setAttribute('aria-hidden', 'true');
             document.body.classList.remove('modal-open');
             modalBody.innerHTML = '';
+        }
+
+        // PDF.js bei Bedarf nachladen (nicht bei jedem Seitenaufruf)
+        const PDFJS_VERSION = '3.11.174';
+        let pdfjsLadePromise = null;
+        function ensurePdfJs() {
+            if (window.pdfjsLib) return Promise.resolve();
+            if (pdfjsLadePromise) return pdfjsLadePromise;
+            pdfjsLadePromise = new Promise(function(resolve, reject) {
+                const s = document.createElement('script');
+                s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/' + PDFJS_VERSION + '/pdf.min.js';
+                s.onload = function() {
+                    window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+                        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/' + PDFJS_VERSION + '/pdf.worker.min.js';
+                    resolve();
+                };
+                s.onerror = function() { reject(new Error('PDF.js konnte nicht geladen werden')); };
+                document.head.appendChild(s);
+            });
+            return pdfjsLadePromise;
+        }
+
+        // Jede .pdf-render-Fläche im Popup mit den gerenderten PDF-Seiten füllen
+        function renderPdfInModal() {
+            const container = modalBody.querySelector('.pdf-render');
+            if (!container) return;
+            const url = container.getAttribute('data-pdf');
+            if (!url) return;
+
+            container.classList.add('loading');
+            container.textContent = 'PDF wird geladen …';
+
+            ensurePdfJs().then(function() {
+                return window.pdfjsLib.getDocument(url).promise;
+            }).then(function(pdf) {
+                container.classList.remove('loading');
+                container.textContent = '';
+                const dpr = window.devicePixelRatio || 1;
+                const breite = container.clientWidth || 680;
+                let kette = Promise.resolve();
+                for (let n = 1; n <= pdf.numPages; n++) {
+                    (function(seiteNr) {
+                        kette = kette.then(function() {
+                            return pdf.getPage(seiteNr);
+                        }).then(function(page) {
+                            const roh = page.getViewport({ scale: 1 });
+                            const skala = breite / roh.width;
+                            const viewport = page.getViewport({ scale: skala * dpr });
+                            const canvas = document.createElement('canvas');
+                            canvas.className = 'pdf-page';
+                            canvas.width = viewport.width;
+                            canvas.height = viewport.height;
+                            container.appendChild(canvas);
+                            return page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise;
+                        });
+                    })(n);
+                }
+                return kette;
+            }).catch(function() {
+                container.classList.remove('loading');
+                container.innerHTML = '<a href="' + url + '" target="_blank" rel="noopener">PDF öffnen</a>';
+            });
         }
 
         allDetails.forEach(detail => {

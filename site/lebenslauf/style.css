@@ -206,6 +206,31 @@ summary::marker { content: ""; display: none !important; }
     font-size: 13px;
 }
 
+/* Universelles PDF-Rendering: PDF.js zeichnet jede Seite auf ein <canvas>.
+   Funktioniert in jedem Browser gleich, ganz ohne Viewer-Bedienleiste. */
+.pdf-render {
+    width: 100%;
+    text-align: center;
+}
+
+.pdf-render.loading {
+    color: #888;
+    font-size: 14px;
+    padding: 30px 0;
+}
+
+.pdf-render .pdf-page {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 12px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.18);
+}
+
+.pdf-render .pdf-page:last-child {
+    margin-bottom: 0;
+}
+
 /* Validierungs-Block unter dem AWS-Zertifikat im Popup */
 .cert-validation {
     margin-top: 18px;
